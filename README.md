@@ -30,11 +30,12 @@ sudo git submodule update --init
 Añadir el toolchain al PATH
 
 ```sh
-# Añadir la siguiente linea a .bashrc
+# Añadir las siguientes linea a ~/.bashrc
 export PICO_SDK_PATH=/home/camilo/pico/pico-sdk
 export PICO_EXAMPLES_PATH=/home/camilo/pico/pico-examples
 export PICO_EXTRAS_PATH=/home/camilo/pico/pico-extras
 export PICO_PLAYGROUND_PATH=/home/camilo/pico/pico-playground
+# Recargar el PATH
 source ~/bashrc
 ```
 
@@ -56,11 +57,14 @@ make
 
 # Picoprobe para debug
 
-
 ## Configuración de USB en WSL (USBIP)
 
 ### Configuración en Linux
 
+```sh
+sudo apt install linux-tools-virtual hwdata
+sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*/usbip 20
+```
 
 ### Configuración en Windows
 
@@ -76,10 +80,13 @@ Listar dispositivos usb y ver ID con lo siguiente
 usbipd wsl list
 ```
 
+Conectar el dispositivo USB a Linux y desconectarlo de Windows
+
 ```powershell
-usbipd wsl attach -b 1-12 # Remplazar 1-12 por el ID del USB
+usbipd wsl attach -b 1-12 -d Ubuntu-USBIP
+# Remplazar "1-12" por el ID del USB
+# Remplazar "Ubuntu-USBIP" por la distribución utilizada, o dejar en blanco en caso de que se quiera usar la distribución por defecto
 ```
 
 ## Configuración compatible con Linux
 
-pendiente...
