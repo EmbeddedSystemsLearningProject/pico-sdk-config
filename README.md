@@ -8,6 +8,7 @@ sudo apt upgrade
 sudo apt install git cmake gcc-arm-none-eabi gcc g++ libstdc++-arm-none-eabi-newlib libnewlib-arm-none-eabi
 sudo apt install automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev
 sudo apt install doxygen
+sudo apt install pkg-config
 ```
 
 Crear una carpeta para almacenar todas las dependencias, en este caso se utiliza la carpeta `pico` en el directorio home
@@ -23,7 +24,7 @@ cd ~/pico
 git clone -b master https://github.com/raspberrypi/pico-examples.git
 git clone -b master https://github.com/raspberrypi/pico-sdk.git
 git clone -b master https://github.com/raspberrypi/pico-extras.git
-cd pico-sdk
+cd ~/pico/pico-sdk
 sudo git submodule update --init
 ```
 
@@ -90,3 +91,53 @@ usbipd wsl attach -b 1-12 -d Ubuntu-USBIP
 
 ## Configuración compatible con Linux
 
+### Picotool
+
+Descargar repositorio y compilar picotool
+
+```sh
+cd ~/pico
+git clone -b master https://github.com/raspberrypi/picotool.git
+
+mkdir ~/pico/picotool/build
+cd ~/pico/picotool/build
+cmake ../
+make
+```
+
+Copiar el compilado a `/usr/local/bin/` con ek fin de ejecutarlo desde cualquier directorio
+
+```sh
+sudo cp picotool /usr/local/bin/
+```
+
+### Picoprobe
+
+Clonar repositorio y compilar picoprobe
+
+```sh
+cd ~/pico
+git clone -b master https://github.com/raspberrypi/picoprobe.git
+mkdir ~/pico/picoprobe/build
+cd ~/pico/picoprobe/build
+cmake ../
+make
+```
+
+Descargar el archivo .uf2 en la raspberry pi pico
+
+### OpenOCD
+
+Clonar repositorio y compilar
+
+```sh
+cd ~/pico
+git clone https://github.com/raspberrypi/openocd.git --branch rp2040 --depth=1
+cd openocd
+./bootstrap
+./configure --enable-picoprobe --enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio
+make
+sudo make install​
+```
+
+### Configuración en vscode
