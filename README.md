@@ -21,9 +21,10 @@ Descargar repositorios
 
 ```sh
 cd ~/pico
-git clone -b master https://github.com/raspberrypi/pico-examples.git
 git clone -b master https://github.com/raspberrypi/pico-sdk.git
+git clone -b master https://github.com/raspberrypi/pico-examples.git
 git clone -b master https://github.com/raspberrypi/pico-extras.git
+git clone -b master https://github.com/raspberrypi/pico-playground.git
 cd ~/pico/pico-sdk
 sudo git submodule update --init
 ```
